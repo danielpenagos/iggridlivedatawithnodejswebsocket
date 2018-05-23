@@ -1,0 +1,229 @@
+<!-- <h1>Using Angular with WebSockets 44444</h1>
+<br />
+
+<table>
+    <tr *ngFor="let f of stockQuote">
+        <td>{{f.TradeId}}</td>
+        <td>{{f.TradeDate}}</td>
+        <td>{{f.BuySell}}</td>
+        <td>{{f.Notional}}</td>
+        <td>{{f.Coupon}}</td>
+    </tr>
+</table>
+<br /> -->
+
+
+<div class="grid1">
+  
+      <div class="grid1-toolbar">
+        <!-- <div class="people-config">
+           
+            <label  for="slider"><small>Slide to increase decrease number of rows </small></label>
+            <igx-slider  id="slider" (onValueChange)='rebindgrid()' [lowerBound]="1200" [minValue]="10000" [maxValue]="100000"  [(ngModel)]="rowsCount"></igx-slider>
+        </div> -->
+  
+  
+        <!-- <div class="people-config" *ngIf='_live' >
+          <label igxLabel for="slider">DataGrid Updating per - {{persec}} MiliSecond</label>
+          <igx-slider  id="slider" (onValueChange)='persecvaluechange($event)' [minValue]="10" [maxValue]="500" [step]="10" [(ngModel)]="persec"></igx-slider>
+        </div> -->
+  
+  
+        <div class="live-data">
+          <span class="view-title"><small>Rows : {{rows}} Columns :{{columns}}</small></span>
+          <!-- <igx-switch style="float:left;"  checked="true" [checked]='false' (change)='changelivestatus($event)'>
+            Live Data
+          </igx-switch> -->
+        </div>
+      </div>
+  
+        <igx-grid [width]="'1172px'" (onSelection)="handleRowSelection($event)" #grid1 id="grid1" [rowHeight]="30"  [data]="stockQuote" [height]="'600px'" [autoGenerate]="false">
+          <igx-column [pinned]="true" dataType="boolean" field="Subscribtion" width="90px">
+              <ng-template igxCell let-cell="cell">
+                  <input type="checkbox" [ngModel]="cell.value" (ngModelChange)="cell.update($event)" />
+              </ng-template>
+          </igx-column>
+          <igx-column [pinned]="true" [sortable]="true"  width="50px" field="TradeId" header="Trade Id" [dataType]="'number'"> </igx-column>
+          <igx-column width="60" field="Coupon" header="Current Status" dataType="number">
+            <ng-template igxCell let-cell="cell">
+                <div class="cell__inner">
+                  <igx-icon  class="icon-positive" *ngIf="cell.value > 100" name="arrow_upward" isActive="true"></igx-icon>
+                  <igx-icon class="icon-negative" *ngIf="cell.value < 100" name="arrow_downward" isActive="true"></igx-icon>
+                </div>
+            </ng-template>
+        </igx-column>
+  
+          <igx-column [sortable]="true" width="120px" field="TradeDate" header="Trade Date" dataType="string"></igx-column>
+          <igx-column width="70px" field="BuySell" header="Buy Sell" dataType="string"></igx-column>
+          <igx-column [sortable]="true" [dataType]="'number'"  width="110px" field="Notional" header="Notional">
+          </igx-column>
+          <igx-column width="120px" [sortable]="true" field="Coupon" header="Coupon" dataType="number"></igx-column>
+          <igx-column [sortable]="true" width="100px" field="Price" header="Price" dataType="number">
+          </igx-column>
+  
+          <igx-column width="155px" field="Coupon"  dataType="number" sortable="true" header="Progress">
+              <ng-template igxCell let-val>
+                  <igx-linear-bar width="120px" [textVisibility]="true" class="cell__inner_2"  [value]="val"></igx-linear-bar>
+              </ng-template>
+          </igx-column>
+          <igx-column width="100" field="" header="Actions" dataType="string">
+              <ng-template igxCell let-cell="cell">
+                  <div class="cell__inner_2">
+                       <button  (click)="dialog.open()" class="igx-button--icon" igxRipple igxRipple="white" igxRippleCentered="true">
+                        <igx-icon fontSet="material" name="feedback"></igx-icon>
+                      </button>
+                      <button  (click)="alert .open()" class="igx-button--icon" igxRipple igxRipple="white" igxRippleCentered="true">
+                          <igx-icon fontSet="material" name="visibility"></igx-icon>
+                        </button>
+                  </div>
+              </ng-template>
+          </igx-column>
+  
+  
+          <igx-column width="100px" field="Currency" header="Currency" dataType="string"></igx-column>
+          <igx-column width="350px" field="ReferenceEntity" header="Reference Entity" dataType="string"></igx-column>
+          <igx-column [sortable]="true" [pinned]="true" width="130px" field="Ticker" header="Ticker" dataType="string"></igx-column>
+          <igx-column width="350px" field="ShortName" header="Short Name" dataType="string"></igx-column>
+          <!-- Begin repetitive columns -->
+          <igx-column [sortable]="true" width="280px" field="Counterparty" header="Counterparty" dataType="string"></igx-column>
+          <igx-column [sortable]="true" width="100px" field="MaturityDate" header="Maturity Date" dataType="string"></igx-column>
+          <igx-column [sortable]="true" width="100px" field="EffectiveDate" header="Effective Date" dataType="string"></igx-column>
+          <igx-column [sortable]="true" width="100px" field="Tenor" header="Tenor" dataType="number"></igx-column>
+          <igx-column [sortable]="true" width="100px" field="RedEntityCode" header="Red Entity Code" dataType="string"></igx-column>
+          <igx-column [sortable]="true" width="105px" field="EntityCusip" header="Entity Cusip" dataType="string"></igx-column>
+          <igx-column [sortable]="true" width="105px" field="EntityType" header="Entity Type" dataType="string"></igx-column>
+          <igx-column [sortable]="true" width="105px" field="Jurisdiction" header="Jurisdiction" dataType="string"></igx-column>
+          <igx-column [sortable]="true" width="105px" field="Sector" header="Sector" dataType="string"></igx-column>
+          <igx-column [sortable]="true" width="105px" field="Trader" header="Trader" dataType="string"></igx-column>
+          <igx-column [sortable]="true" width="105px" field="Status" header="Status" dataType="string"></igx-column>
+          <igx-column [sortable]="true" width="220px" field="TradeDate" header="Trade Date" dataType="string"></igx-column>
+          <igx-column [sortable]="true" width="105px" field="Currency" header="Currency" dataType="string"></igx-column>
+          <igx-column width="350px" field="ReferenceEntity" header="Reference Entity" dataType="string"></igx-column>
+          <igx-column width="105px" field="Ticker" header="Ticker" dataType="string"></igx-column>
+          <igx-column width="350px" field="ShortName" header="Short Name" dataType="string"></igx-column>
+          <igx-column width="280px" field="Counterparty" header="Counterparty" dataType="string"></igx-column>
+          <igx-column width="105px" field="MaturityDate" header="Maturity Date" dataType="string"></igx-column>
+          <igx-column width="105px" field="EffectiveDate" header="Effective Date" dataType="string"></igx-column>
+          <igx-column width="105px" field="Tenor" header="Tenor" dataType="number"></igx-column>
+          <igx-column width="105px" field="RedEntityCode" header="Red Entity Code" dataType="string"></igx-column>
+          <igx-column width="100px" field="EntityCusip" header="Entity Cusip" dataType="string"></igx-column>
+          <igx-column width="90px" field="EntityType" header="Entity Type" dataType="string"></igx-column>
+          <igx-column width="90px" field="Jurisdiction" header="Jurisdiction" dataType="string"></igx-column>
+          <igx-column width="100px" field="Sector" header="Sector" dataType="string"></igx-column>
+          <igx-column width="105px" field="Trader" header="Trader" dataType="string"></igx-column>
+          <igx-column width="105px" field="Status" header="Status" dataType="string"></igx-column>
+          <igx-column width="220px" field="TradeDate" header="Trade Date" dataType="string"></igx-column>
+          <igx-column width="105px" field="Currency" header="Currency" dataType="string"></igx-column>
+          <igx-column width="350px" field="ReferenceEntity" header="Reference Entity" dataType="string"></igx-column>
+          <igx-column width="105px" field="Ticker" header="Ticker" dataType="string"></igx-column>
+          <igx-column width="350px" field="ShortName" header="Short Name" dataType="string"></igx-column>
+          <igx-column width="280px" field="Counterparty" header="Counterparty" dataType="string"></igx-column>
+          <igx-column width="105px" field="MaturityDate" header="Maturity Date" dataType="string"></igx-column>
+          <igx-column width="105px" field="EffectiveDate" header="Effective Date" dataType="string"></igx-column>
+          <igx-column width="105px" field="Tenor" header="Tenor" dataType="number"></igx-column>
+          <igx-column width="105px" field="RedEntityCode" header="Red Entity Code" dataType="string"></igx-column>
+          <igx-column width="105px" field="EntityCusip" header="Entity Cusip" dataType="string"></igx-column>
+          <igx-column width="105px" field="EntityType" header="Entity Type" dataType="string"></igx-column>
+          <igx-column width="105px" field="Jurisdiction" header="Jurisdiction" dataType="string"></igx-column>
+          <igx-column width="105px" field="Sector" header="Sector" dataType="string"></igx-column>
+          <igx-column width="105px" field="Trader" header="Trader" dataType="string"></igx-column>
+          <igx-column width="105px" field="Status" header="Status" dataType="string"></igx-column>
+          <igx-column width="220px" field="TradeDate" header="Trade Date" dataType="string"></igx-column>
+          <igx-column width="105px" field="Currency" header="Currency" dataType="string"></igx-column>
+          <igx-column width="350px" field="ReferenceEntity" header="Reference Entity" dataType="string"></igx-column>
+          <igx-column width="105px" field="Ticker" header="Ticker" dataType="string"></igx-column>
+          <igx-column width="350px" field="ShortName" header="Short Name" dataType="string"></igx-column>
+          <igx-column width="280px" field="Counterparty" header="Counterparty" dataType="string"></igx-column>
+          <igx-column width="105px" field="MaturityDate" header="Maturity Date" dataType="string"></igx-column>
+          <igx-column width="105px" field="EffectiveDate" header="Effective Date" dataType="string"></igx-column>
+          <igx-column width="105px" field="Tenor" header="Tenor" dataType="number"></igx-column>
+          <igx-column width="105px" field="RedEntityCode" header="Red Entity Code" dataType="string"></igx-column>
+          <igx-column width="105px" field="EntityCusip" header="Entity Cusip" dataType="string"></igx-column>
+          <igx-column width="105px" field="EntityType" header="Entity Type" dataType="string"></igx-column>
+          <igx-column width="105px" field="Jurisdiction" header="Jurisdiction" dataType="string"></igx-column>
+          <igx-column width="105px" field="Sector" header="Sector" dataType="string"></igx-column>
+          <igx-column width="105px" field="Trader" header="Trader" dataType="string"></igx-column>
+          <igx-column width="105px" field="Status" header="Status" dataType="string"></igx-column>
+          <igx-column width="220px" field="TradeDate" header="Trade Date" dataType="string"></igx-column>
+          <igx-column width="105px" field="Currency" header="Currency" dataType="string"></igx-column>
+          <igx-column width="350px" field="ReferenceEntity" header="Reference Entity" dataType="string"></igx-column>
+          <igx-column width="105px" field="Ticker" header="Ticker" dataType="string"></igx-column>
+          <igx-column width="350px" field="ShortName" header="Short Name" dataType="string"></igx-column>
+          <igx-column width="280px" field="Counterparty" header="Counterparty" dataType="string"></igx-column>
+          <igx-column width="105px" field="MaturityDate" header="Maturity Date" dataType="string"></igx-column>
+          <igx-column width="105px" field="EffectiveDate" header="Effective Date" dataType="string"></igx-column>
+          <igx-column width="105px" field="Tenor" header="Tenor" dataType="number"></igx-column>
+          <igx-column width="105px" field="RedEntityCode" header="Red Entity Code" dataType="string"></igx-column>
+          <igx-column width="105px" field="EntityCusip" header="Entity Cusip" dataType="string"></igx-column>
+          <igx-column width="105px" field="EntityType" header="Entity Type" dataType="string"></igx-column>
+          <igx-column width="105px" field="Jurisdiction" header="Jurisdiction" dataType="string"></igx-column>
+          <igx-column width="105px" field="Sector" header="Sector" dataType="string"></igx-column>
+          <igx-column width="105px" field="Trader" header="Trader" dataType="string"></igx-column>
+          <igx-column width="105px" field="Status" header="Status" dataType="string"></igx-column>
+          <igx-column width="220px" field="TradeDate" header="Trade Date" dataType="string"></igx-column>
+          <igx-column width="105px" field="Currency" header="Currency" dataType="string"></igx-column>
+          <igx-column width="350px" field="ReferenceEntity" header="Reference Entity" dataType="string"></igx-column>
+          <igx-column width="105px" field="Ticker" header="Ticker" dataType="string"></igx-column>
+          <igx-column width="350px" field="ShortName" header="Short Name" dataType="string"></igx-column>
+          <igx-column width="280px" field="Counterparty" header="Counterparty" dataType="string"></igx-column>
+          <igx-column width="105px" field="MaturityDate" header="Maturity Date" dataType="string"></igx-column>
+          <igx-column width="105px" field="EffectiveDate" header="Effective Date" dataType="string"></igx-column>
+          <igx-column width="105px" field="Tenor" header="Tenor" dataType="number"></igx-column>
+          <igx-column width="105px" field="RedEntityCode" header="Red Entity Code" dataType="string"></igx-column>
+          <igx-column width="105px" field="EntityCusip" header="Entity Cusip" dataType="string"></igx-column>
+          <igx-column width="105px" field="EntityType" header="Entity Type" dataType="string"></igx-column>
+          <igx-column width="105px" field="Jurisdiction" header="Jurisdiction" dataType="string"></igx-column>
+          <igx-column width="105px" field="Sector" header="Sector" dataType="string"></igx-column>
+          <igx-column width="105px" field="Trader" header="Trader" dataType="string"></igx-column>
+          <igx-column width="105px" field="Status" header="Status" dataType="string"></igx-column>
+          <igx-column width="220px" field="TradeDate" header="Trade Date" dataType="string"></igx-column>
+          <igx-column width="105px" field="Currency" header="Currency" dataType="string"></igx-column>
+          <igx-column width="350px" field="ReferenceEntity" header="Reference Entity" dataType="string"></igx-column>
+          <igx-column width="105px" field="Ticker" header="Ticker" dataType="string"></igx-column>
+          <igx-column width="350px" field="ShortName" header="Short Name" dataType="string"></igx-column>
+          <igx-column width="280px" field="Counterparty" header="Counterparty" dataType="string"></igx-column>
+          <igx-column width="105px" field="MaturityDate" header="Maturity Date" dataType="string"></igx-column>
+          <igx-column width="105px" field="EffectiveDate" header="Effective Date" dataType="string"></igx-column>
+          <igx-column width="105px" field="Tenor" header="Tenor" dataType="number"></igx-column>
+          <igx-column width="105px" field="RedEntityCode" header="Red Entity Code" dataType="string"></igx-column>
+          <igx-column width="105px" field="EntityCusip" header="Entity Cusip" dataType="string"></igx-column>
+          <igx-column width="105px" field="EntityType" header="Entity Type" dataType="string"></igx-column>
+          <igx-column width="105px" field="Jurisdiction" header="Jurisdiction" dataType="string"></igx-column>
+          <igx-column width="105px" field="Sector" header="Sector" dataType="string"></igx-column>
+          <igx-column width="105px" field="Trader" header="Trader" dataType="string"></igx-column>
+          <igx-column width="105px" field="Status" header="Status" dataType="string"></igx-column>
+          <igx-column width="220px" field="TradeDate" header="Trade Date" dataType="string"></igx-column>
+          <igx-column width="105px" field="Currency" header="Currency" dataType="string"></igx-column>
+          <igx-column width="350px" field="ReferenceEntity" header="Reference Entity" dataType="string"></igx-column>
+          <igx-column width="105px" field="Ticker" header="Ticker" dataType="string"></igx-column>
+          <igx-column width="350px" field="ShortName" header="Short Name" dataType="string"></igx-column>
+          <igx-column width="280px" field="Counterparty" header="Counterparty" dataType="string"></igx-column>
+          <igx-column width="105px" field="MaturityDate" header="Maturity Date" dataType="string"></igx-column>
+          <igx-column width="105px" field="EffectiveDate" header="Effective Date" dataType="string"></igx-column>
+          <igx-column width="105px" field="Tenor" header="Tenor" dataType="number"></igx-column>
+          <igx-column width="105px" field="RedEntityCode" header="Red Entity Code" dataType="string"></igx-column>
+          <igx-column width="105px" field="EntityCusip" header="Entity Cusip" dataType="string"></igx-column>
+          <igx-column width="105px" field="EntityType" header="Entity Type" dataType="string"></igx-column>
+          <igx-column width="105px" field="Jurisdiction" header="Jurisdiction" dataType="string"></igx-column>
+          <igx-column width="105px" field="Sector" header="Sector" dataType="string"></igx-column>
+          <igx-column width="105px" field="Trader" header="Trader" dataType="string"></igx-column>
+          <igx-column width="105px" field="Status" header="Status" dataType="string"></igx-column>
+        </igx-grid>
+    </div>
+  
+        <igx-dialog #dialog title="Info"
+        leftButtonLabel="Cancel"
+        (onLeftButtonSelect)="dialog.close()"
+        rightButtonLabel="OK"
+        (onRightButtonSelect)="dialog.close()"
+        message="There are {{rows}} rows and 130 coulmns in the grid. Selected Ticker {{selectedTicker}}">
+        </igx-dialog>
+  
+  
+  
+        <igx-dialog #alert title="Notification"
+        message="Your email has been sent successfully! Selected Ticker {{selectedTicker}}"
+        leftButtonLabel="OK"
+        (onLeftButtonSelect)="alert.close()">
+        </igx-dialog>
+  

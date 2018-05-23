@@ -1,0 +1,158 @@
+/* You can add global styles to this file, and also import other style files */
+/* See: https://www.infragistics.com/products/ignite-ui-angular/angular/components/themes.html */
+@import "~igniteui-angular/core/styles/themes/index";
+
+$primary: #731963 !default;
+$secondary: #ce5712 !default;
+
+$app-palette: igx-palette($primary, $secondary);
+
+@include igx-core();
+@include igx-theme($app-palette);
+
+//$navbar-theme: igx-navbar-theme($background: #731963);
+//@include igx-navbar($navbar-theme);
+
+.content p {
+  margin: 15px;
+}
+
+$progress-theme: igx-progress-linear-theme(
+  $track-color: rgba(255,255,255, .4),
+  $fill-color-default: #ffb529,
+  $text-color: #fff
+);
+
+// $slider-theme: igx-slider-theme(
+//   $track-color: rgba(255,255,255, .4),
+//   $label-color:#fff,
+//   $thumb-color: #ffb529
+// );
+
+$switch-theme: igx-switch-theme(
+  $thumb-on-color: #ffb529,
+  $track-on-color: rgba(255, 181, 41, 0.31),
+  $thumb-off-color: #fff,
+  $track-off-color: rgba(255, 255, 255, 0.70)
+);
+
+$grid1-theme: igx-grid-theme(
+  $header-background: #333,
+  $content-background: #222,
+  $cell-selected-background: #731963
+);
+
+$icon-button-theme: igx-button-theme(
+  $icon-color: rgba(255, 255, 255, 0.70),
+  $icon-hover-background: rgba(255,255,255, .10),
+  $icon-hover-color: #fff,
+  $icon-focus-color: #fff
+);
+
+
+.grid1-toolbar {
+  width: 1172px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: #444;
+  padding: 0 16px;
+}
+
+
+.grid1 {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  height: 100%;
+  
+  // @include igx-slider($slider-theme);
+  @include igx-switch($switch-theme);
+  @include igx-grid($grid1-theme);
+  @include igx-progress-linear($progress-theme);
+  @include igx-button($icon-button-theme);
+  margin-top: 50px;
+  
+  .igx-grid__th,
+  .igx-grid__td {
+    padding: 0 12px;
+    display: flex;
+    align-items: center;
+  }
+  
+  .igx-grid__th--number,
+  .igx-grid__td--number {
+    justify-content: flex-end;
+  }
+  
+  .cell__inner_2 {
+    min-width: 100%;
+  }
+  
+  .igx-icon, .igx-icon--inactive {
+    width: 1rem;
+    height: 1rem;
+    font-size: 1rem;
+  }
+  
+  .icon-positive {
+    color: igx-color($app-palette, 'success')
+  }
+  .icon-negative {
+    color: igx-color($app-palette, 'error')
+  }
+  
+  .people-config {
+    min-width: 300px;
+    display: flex;
+    label {
+      display: flex;
+      align-items: center;
+      margin-right: 16px;
+    }
+    igx-slider {
+      width: 150px;
+    }
+  }
+  
+  .grid1-toolbar {
+    color: #f9f9f9;
+    border-bottom: 1px solid igx-color($app-palette, 'grays', 200);
+    .igx-switch__label {
+      color: #f9f9f9;
+    }
+  }
+  
+  .live-data {
+    min-width: 200px;
+    display: flex;
+    align-items: center;
+  }
+  
+  .view-title {
+    margin-right: 16px;
+  }
+  
+  .center-content {
+    margin: 0 auto;
+  }
+  
+  &:after {
+    content: '';
+    position: fixed;
+    z-index: -1;
+    background: #222;
+    width: 100%;
+    height: 100%;
+    top:0;
+    left:0;
+  }
+  
+  .ng-star-inserted {
+    .igx-slider__track-ticks {
+      background: repeating-linear-gradient(to left, #444, #444 1.5px, transparent 1.5px, transparent 10%) repeat scroll 0% 0%, rgba(0, 0, 0, 0) repeating-linear-gradient(to right, #444, #444 1.5px, transparent 1.5px, transparent 10%) repeat scroll 0% 0% !important;
+    }
+  }
+  
+}
